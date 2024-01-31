@@ -1,0 +1,145 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<style>
+  h1{
+    font-family: system-ui;
+  }
+  
+ .card-body{
+  border-radius: 12px;
+    position: relative;
+    display: inline;
+    flex-direction: column;
+    line-height: 3; 
+    object-fit: cover;
+    text-transform: capitalize;
+    font-size: 10px;
+      outline: none;
+      cursor: pointer;
+      gap:30px;
+      &:hover {
+        background:linear-gradient(gray,pink);
+        object-fit: cover;
+        outline-offset: 3px;
+     }
+  
+  }
+  .card {
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    padding: 32px 25px 0 25px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+    padding: 0 20px;
+    object-fit: cover;
+    overflow: hidden;
+    
+  }
+ 
+  .container {
+    padding: 2px 16px;
+    object-fit: cover;
+  }
+
+  button {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+  .card-text{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 120%;
+    text-transform: capitalize;
+    
+  }
+  .blockquote-footer{
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 120%;
+    text-transform: capitalize;
+    
+  }
+
+
+  
+</style>
+
+{% if not request.user.is_authenticated%}
+<h1>sorry! you need to be logged in </h1>
+  {%else %} 
+ <form method="POST" action="{% url 'add_post' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+ 
+  <div class="form-floating">
+      <textarea class="form-control"  placeholder="leave comment here" name='captions' id="captions" style="height: 100px;"></textarea>
+      <label for="floatingTextarea2" for="captions">Add your caption</label>
+    
+      <input type="file" name="image_upload">
+      <button type="submit" class="btn btn-primary" >Post</button>
+    </div>
+    </form>
+
+<h1>Posts</h1>
+{% for Post in post_list %}
+<div class="card" style="width: 19rem;height: 400px;">
+  <div class="card-body">
+    <p class="card-text">{{Post.captions}}</p>
+    {% if Post.image and Post.image.url%}
+     <img src={{Post.image.url}} style="box-shadow: 0 4px 8px 0
+      transition:0.3s;
+       width:10rem ;
+        height:10rem"/>
+    {%endif%}
+    <br>
+    <blockquote class="blockquote mb-0">
+      <footer class="blockquote-footer">{{Post.user.username}}</footer>
+      
+    </blockquote>
+    <br>
+    
+    {% if request.user.id != post.user.id %}
+      <form action="{% url 'like_post' Post.id %}" method="GET">
+      {%if Post.id in already_liked_post_ids_of_current_user%}
+        Already liked!
+      {% else %}
+        <button type="submit" class="btn btn-primary">Like👍</button>
+      {%endif%}
+      
+      </form>
+    {% else%}
+      You are the author of this post.
+
+    {% endif %}
+
+
+   
+
+
+    <h5>no of Likes:{{Post.like_post.count}}</h5>
+    
+  </div>
+ </div>
+
+ {% endfor %}
+ {% endif%}
+{%endblock%}
+

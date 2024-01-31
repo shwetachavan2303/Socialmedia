@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h1>Welcome {{request.user.username}}</h1>
+  <h2>Email : {{request.user.email}}</h2>
+  <h3>congradulations you have made {{no_of_posts_created}} posts</h3>
+  <h3>congradulations you have received {{no_of_likes_received}} likes</h3> 
+  <h3>congradulations you have made {{no_of_likes_done}} likes</h3>
+{% endblock  %}
+  

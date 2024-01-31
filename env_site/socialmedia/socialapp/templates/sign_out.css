@@ -1,0 +1,60 @@
+*{margin:0;padding:0;
+}
+
+#container{
+	margin: auto;
+	width: 50%;
+	min-width: 240px;
+	max-width: 320px;
+	display: block;
+	margin-top : 5%;
+}
+
+#container button{
+	margin:5px;
+}
+
+#header{
+	height: 30px;
+	width:100%;
+	background-color: rgba(0,184,235,1);
+	border-radius: 5px;
+}
+
+#statusindicator{
+	float: right;
+	margin-right: 5px;
+	color: rgba(255,255,255,1);
+	font-size: 75%;
+}
+
+#splashscreen{
+	text-align:center;
+}
+
+#login{
+	display: none;
+	border-bottom: 2px solid rgba(119, 119, 119, 0.75);
+	text-align:center;
+}
+
+#login span{
+	width: 100%;
+	color:rgba(209,50,50,1);
+
+}
+
+#login button{
+	width: 100%;
+	max-width: 240px;
+}
+
+#login form{
+	margin: 5px;
+}
+
+#loggedin{
+	display: none;
+	border-bottom: 2px solid rgba(119, 119, 119, 0.75);
+	text-align:center;
+}
